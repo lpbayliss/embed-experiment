@@ -1,21 +1,80 @@
+import { Check, Loader2 } from "lucide-react";
 import { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0);
+import { ThemeProvider } from "@/components/theme-provider";
 
+import { Button } from "./components/ui/button";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./components/ui/card";
+import { cn } from "./lib/utils";
+
+type WalletRewardProps = {
+  name: string;
+  description: string;
+};
+const WalletReward = ({ name, description }: WalletRewardProps) => {
+  const [isClaiming, setIsClaiming] = useState(false);
+  const [isClaimed, setIsClaimed] = useState(false);
+
+  const handleClaim = () => {
+    setIsClaiming(true);
+    setTimeout(() => {
+      setIsClaiming(false);
+      setIsClaimed(true);
+    }, 2000);
+  };
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-4">
-      <h1>This is a Embedded Widget</h1>
-      <i>Using IFRAME</i>
+    <Card
+      className={cn("transition-colors", {
+        "border-green-700": isClaimed,
+      })}
+    >
+      <CardHeader>
+        <CardTitle>{name}</CardTitle>
+        <CardDescription>{description}</CardDescription>
+      </CardHeader>
+      <CardFooter>
+        <Button
+          className={cn("w-full transition-colors", {
+            "bg-green-700": isClaimed,
+          })}
+          onClick={handleClaim}
+          disabled={isClaiming || isClaimed}
+        >
+          {isClaiming && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {isClaimed && <Check className="mr-2 h-4 w-4" />}
+          {!isClaiming && !isClaimed && "Claim reward"}
+          {!isClaiming && isClaimed && "Reward claimed!"}
+          {isClaiming && "Please wait..."}
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+};
 
-      <button
-        onClick={() => setCount((count) => count + 1)}
-        className="p-2 bg-red-700 text-white rounded-lg"
-      >
-        count is {count}
-      </button>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis repellat obcaecati explicabo praesentium consectetur mollitia quis minus, recusandae eos repudiandae aspernatur. Tenetur, odit ducimus ad exercitationem cupiditate deleniti dicta magni.</p>
-    </div>
+function App() {
+  return (
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <div className="flex flex-col gap-4">
+        <WalletReward
+          name="Buy One Get One Free (Beer)"
+          description="Purchase any two of our beers and get the second one for free"
+        />
+        <WalletReward
+          name="50% off"
+          description="50% off all orders over $100"
+        />
+        <WalletReward
+          name="Double points"
+          description="Double the points earned for one order"
+        />
+      </div>
+    </ThemeProvider>
   );
 }
 
