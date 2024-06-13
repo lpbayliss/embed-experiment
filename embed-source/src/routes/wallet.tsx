@@ -3,15 +3,15 @@ import { useState } from "react";
 
 import { ThemeProvider } from "@/components/theme-provider";
 
-import { Button } from "./components/ui/button";
+import { Button } from "../components/ui/button";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./components/ui/card";
-import { cn } from "./lib/utils";
+} from "../components/ui/card";
+import { cn } from "../lib/utils";
 
 type WalletRewardProps = {
   name: string;
@@ -57,7 +57,7 @@ const WalletReward = ({ name, description }: WalletRewardProps) => {
   );
 };
 
-function App() {
+const WalletRoute = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="flex flex-col gap-4">
@@ -76,6 +76,6 @@ function App() {
       </div>
     </ThemeProvider>
   );
-}
+};
 
-export default App;
+export default WalletRoute;

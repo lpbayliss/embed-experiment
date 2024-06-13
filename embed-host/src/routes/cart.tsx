@@ -12,9 +12,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { Alert, AlertDescription, AlertTitle } from "./components/ui/alert";
-import { Button } from "./components/ui/button";
-import { Card } from "./components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "../components/ui/alert";
+import { Button } from "../components/ui/button";
+import { Card } from "../components/ui/card";
 
 type CartItemProps = {
   name: string;
@@ -40,7 +40,7 @@ const CartItem = ({ name, price, quantity }: CartItemProps) => (
   </div>
 );
 
-function App() {
+const CartRoute = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="mx-auto flex min-h-screen max-w-lg flex-col border-x px-4">
@@ -73,7 +73,7 @@ function App() {
               </SheetHeader>
               <div className="mt-6 h-full w-full">
                 <iframe
-                  src="http://localhost:3001/"
+                  src="http://localhost:3001/wallet"
                   className="h-full w-full"
                 />
               </div>
@@ -95,6 +95,6 @@ function App() {
       </div>
     </ThemeProvider>
   );
-}
+};
 
-export default App;
+export default CartRoute;
